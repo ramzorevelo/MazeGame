@@ -161,3 +161,4 @@ This is a great way to practice working with C++ classes, logic, and structure.
 - Do not delete the font.ttf or DLL files.
 - If you want a different font style, you can search fonts through google, download any .ttf file and rename them to font.ttf and replace this file
 - The project is set up to work out of the box on Windows using Visual Studio 2022.
+- The project was not tested with older versions of Visual Studio
