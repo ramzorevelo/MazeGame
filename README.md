@@ -175,6 +175,6 @@ Try modifying the game to:
 ## Notes
 - All SDL3 and SDL_ttf files are already included in the project folder.
 - Do not delete the font.ttf or DLL files.
-- If you want a different font style, you can search fonts through google, download any .ttf file and rename them to font.ttf and replace this file
+- If you want to use a different font style, you can search for free .ttf fonts online (e.g. via Google), download any .ttf file, rename it to font.ttf, and replace the existing file in the project directory.
 - The project is set up to work out of the box on Windows using Visual Studio 2022.
 - The project was not tested with older versions of Visual Studio
