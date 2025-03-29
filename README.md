@@ -77,7 +77,7 @@ After you open the project in Visual Studio:
   
 ---
 
-## Controls
+## Gameplay
 
 - Arrow keys: Move the player
 - Collect yellow items to earn points
