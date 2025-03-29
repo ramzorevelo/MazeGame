@@ -74,7 +74,7 @@ After you open the project in Visual Studio:
 
 - Header Files – Contains files like Game.h, Maze.h, and GameConfig.h
 - Source Files – Contains .cpp files like main.cpp, Game.cpp, Player.cpp, etc.
-- 
+  
 ---
 
 ## Controls
