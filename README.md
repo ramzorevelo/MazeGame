@@ -24,7 +24,7 @@ You have two options:
 
 1. Open Visual Studio 2022
 2. Go to **File > Clone Repository**
-3. Paste the GitHub repository URL
+3. Copy and paste https://github.com/ramzorevelo/MazeGame.git
 4. Choose a folder for the project
 5. Click **Clone**
 
