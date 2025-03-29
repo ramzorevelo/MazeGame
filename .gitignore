@@ -363,7 +363,6 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Ignore build output folders
-x64/
 .vs/
 *.exe
 *.pdb
