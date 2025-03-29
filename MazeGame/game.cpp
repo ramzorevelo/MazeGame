@@ -1,350 +1,254 @@
-#include "game.h"
+// Game.cpp
+#include "Game.h"
+#include "GameConfig.h"
+#include "Renderer.h"
+#include "Maze.h"
+#include "UIManager.h"
+#include "VisualEffect.h"
 
-// Define global variables
-SDL_Window* window = nullptr;
-SDL_Renderer* renderer = nullptr;
-TTF_Font* font = nullptr; // Font for text rendering
-SDL_Color textColor = { 255, 255, 255, 255 }; // White text color
+#include <iostream>
+#include <sstream>
+#include <vector>
+#include <string>
+#include "Player.h"
+#include "Enemy.h"
+#include "Item.h"
+#include "Goal.h"
 
-int maze[MAZE_HEIGHT][MAZE_WIDTH];
-int playerX, playerY;
-int goalX, goalY;
-int score = 0;
-int health = 100;
-int playerLives = 3; // Define player lives globally
-bool gameOver = false;
-bool gameWon = false;
-std::vector<Item> items;
-std::vector<Enemy> enemies; // Define enemies globally
-bool isInvulnerable = false;
-Uint64 invulnerableStartTime = 0;
-std::vector<VisualEffect> visualEffects;
-bool initSDL() {
-    // Initialize SDL
+// ---------------------
+// INTERNAL GAME STATE
+// ---------------------
+namespace {
+    SDL_Window* window = nullptr;
+    SDL_Renderer* renderer = nullptr;
+    TTF_Font* font = nullptr;
+
+    bool gameOver = false;
+    bool gameWon = false;
+    bool exitRequested = false;
+
+    int score = 0;
+    int timeRemaining = 100;
+    int playerLives = GameConfig::PLAYER_LIVES;
+
+    Uint64 gameStartTime = 0;
+    Uint64 lastTimeDecrease = 0;
+
+    // For invulnerability after being hit
+    bool isInvulnerable = false;
+    Uint64 invulnerableStartTime = 0;
+}
+
+// ---------------------
+// SDL ACCESS FUNCTIONS
+// These are used by other modules
+// ---------------------
+SDL_Renderer* Game::getRenderer() { return renderer; }
+SDL_Window* Game::getWindow() { return window; }
+TTF_Font* Game::getFont() { return font; }
+
+
+// ---------------------
+// INITIALIZATION
+// ---------------------
+bool Game::init() {
     if (!SDL_Init(SDL_INIT_VIDEO)) {
-        SDL_Log("SDL could not initialize! SDL_Error: %s", SDL_GetError());
+        SDL_Log("SDL Init failed: %s", SDL_GetError());
         return false;
     }
 
-    // Initialize SDL_ttf
     if (!TTF_Init()) {
-        SDL_Log("SDL_ttf could not initialize! TTF_Error: %s", SDL_GetError());
+        SDL_Log("TTF Init failed: %s", SDL_GetError());
         return false;
     }
 
-    // Load font (ensure font.ttf is in the project directory)
-    font = TTF_OpenFont("font.ttf", 24); // 24 is the font size
-    if (!font) {
-        SDL_Log("Failed to load font! TTF_Error: %s", SDL_GetError());
-        return false;
-    }
-
-    window = SDL_CreateWindow("Maze Game", WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+    // Create window and renderer
+    window = SDL_CreateWindow("Maze Game", GameConfig::WINDOW_WIDTH, GameConfig::WINDOW_HEIGHT, 0);
     if (!window) {
-        SDL_Log("Window could not be created! SDL_Error: %s", SDL_GetError());
+        SDL_Log("Window creation failed: %s", SDL_GetError());
         return false;
     }
 
     renderer = SDL_CreateRenderer(window, nullptr);
     if (!renderer) {
-        SDL_Log("Renderer could not be created! SDL_Error: %s", SDL_GetError());
+        SDL_Log("Renderer creation failed: %s", SDL_GetError());
         return false;
     }
+
+    // Load font
+    font = TTF_OpenFont(GameConfig::FONT_PATH, GameConfig::FONT_SIZE);
+    if (!font) {
+        SDL_Log("Font load failed: %s", SDL_GetError());
+        return false;
+    }
+
+    // Record start time
+    gameStartTime = SDL_GetTicks();
+    lastTimeDecrease = gameStartTime;
 
     return true;
 }
 
-void closeSDL() {
-    // Clean up SDL_ttf
-    if (font) {
-        TTF_CloseFont(font);
-        font = nullptr;
-    }
-    TTF_Quit();
+// ---------------------
+// CLEANUP
+// ---------------------
+void Game::shutdown() {
+    TTF_CloseFont(font);
+    font = nullptr;
 
-    // Clean up SDL
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+
+    TTF_Quit();
     SDL_Quit();
 }
-SDL_FColor toFColor(SDL_Color c) {
-    return SDL_FColor{
-        c.r / 255.0f,
-        c.g / 255.0f,
-        c.b / 255.0f,
-        c.a / 255.0f
-    };
-}
-void drawFilledCircle(SDL_Renderer* renderer, int centerX, int centerY, int radius, SDL_Color color) {
-    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
 
-    for (int w = 0; w < radius * 2; w++) {
-        for (int h = 0; h < radius * 2; h++) {
-            int dx = radius - w;
-            int dy = radius - h;
-            if ((dx * dx + dy * dy) <= (radius * radius)) {
-                SDL_RenderPoint(renderer, (float)(centerX + dx), (float)(centerY + dy));
-            }
+
+// ---------------------
+// INPUT HANDLING
+// ---------------------
+void Game::handleInput(SDL_Event& event) {
+    if (event.type == SDL_EVENT_KEY_DOWN) {
+        switch (event.key.key) {
+        case SDLK_UP: Player::move(0, -1); break;
+        case SDLK_DOWN: Player::move(0, 1); break;
+        case SDLK_LEFT: Player::move(-1, 0); break;
+        case SDLK_RIGHT: Player::move(1, 0); break;
         }
     }
 }
-void drawFilledTriangle(SDL_Renderer* renderer, SDL_FPoint p1, SDL_FPoint p2, SDL_FPoint p3, SDL_Color color) {
-    SDL_Vertex verts[3];
 
-    verts[0].position = p1;
-    verts[1].position = p2;
-    verts[2].position = p3;
-
-    for (int i = 0; i < 3; ++i) {
-        verts[i].color = toFColor(color);
-        verts[i].tex_coord = { 0, 0 }; // Not using textures
-    }
-
-    SDL_RenderGeometry(renderer, nullptr, verts, 3, nullptr, 0);
-}
-void drawEnemyTriangle(int x, int y, int direction, SDL_Color color, int yOffset) {
-    int centerX = x * TILE_SIZE + TILE_SIZE / 2;
-    int centerY = y * TILE_SIZE + yOffset + TILE_SIZE / 2;
-    int half = TILE_SIZE / 3;
-
-    SDL_FPoint points[4]; // 3 points + closing point
-
-    switch (direction) {
-    case PATH_UP:
-        points[0] = { (float)centerX, (float)(centerY - half) };
-        points[1] = { (float)(centerX - half), (float)(centerY + half) };
-        points[2] = { (float)(centerX + half), (float)(centerY + half) };
-        break;
-    case PATH_DOWN:
-        points[0] = { (float)centerX, (float)(centerY + half) };
-        points[1] = { (float)(centerX - half), (float)(centerY - half) };
-        points[2] = { (float)(centerX + half), (float)(centerY - half) };
-        break;
-    case PATH_LEFT:
-        points[0] = { (float)(centerX - half), (float)centerY };
-        points[1] = { (float)(centerX + half), (float)(centerY - half) };
-        points[2] = { (float)(centerX + half), (float)(centerY + half) };
-        break;
-    case PATH_RIGHT:
-        points[0] = { (float)(centerX + half), (float)centerY };
-        points[1] = { (float)(centerX - half), (float)(centerY - half) };
-        points[2] = { (float)(centerX - half), (float)(centerY + half) };
-        break;
-    }
-
-
-    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-    SDL_RenderLines(renderer, points, 4);
-    SDL_RenderLines(renderer, points, 4); // Fill not available, but outline works
+bool Game::shouldQuit() {
+    return exitRequested;
 }
 
-void drawFilledDiamond(SDL_Renderer* renderer, int centerX, int centerY, int size, SDL_Color color) {
-    SDL_FPoint points[4] = {
-        { (float)centerX,         (float)(centerY - size) }, // Top
-        { (float)(centerX + size), (float)centerY },          // Right
-        { (float)centerX,         (float)(centerY + size) }, // Bottom
-        { (float)(centerX - size), (float)centerY }           // Left
-    };
 
-    SDL_Vertex verts[6]; // 2 triangles to form a diamond
 
-    verts[0].position = points[0]; verts[0].color = toFColor(color);
-    verts[1].position = points[1]; verts[1].color = toFColor(color);
-    verts[2].position = points[2]; verts[2].color = toFColor(color);
+// ---------------------
+// GAME LOGIC UPDATE
+// ---------------------
+void Game::update() {
+    if (gameOver) return;
 
-    verts[3].position = points[2]; verts[3].color = toFColor(color);
-    verts[4].position = points[3]; verts[4].color = toFColor(color);
-    verts[5].position = points[0]; verts[5].color = toFColor(color);
+    Uint64 now = SDL_GetTicks();
 
-    for (int i = 0; i < 6; ++i)
-        verts[i].tex_coord = { 0, 0 };
-
-    SDL_RenderGeometry(renderer, nullptr, verts, 6, nullptr, 0);
-}
-void renderText(const std::string& text, int x, int y) {
-    // Create a surface from the text
-    SDL_Color fg = { 0, 0, 0, 255 };
-    SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), text.size(), textColor);
-    if (!textSurface) {
-        SDL_Log("Unable to render text surface! TTF_Error: %s", SDL_GetError());
-        return;
+    // Handle invulnerability timer
+    if (isInvulnerable && now - invulnerableStartTime >= GameConfig::INVULNERABLE_DURATION) {
+        isInvulnerable = false;
     }
 
-    // Create a texture from the surface
-    SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-    if (!textTexture) {
-        SDL_Log("Unable to create texture from rendered text! SDL_Error: %s", SDL_GetError());
-        SDL_DestroySurface(textSurface);
-        return;
+    // Decrease timer every second
+    if (now - lastTimeDecrease >= GameConfig::TIME_DECREASE_INTERVAL) {
+        timeRemaining--;
+        lastTimeDecrease = now;
     }
 
-    // Get the width and height of the text
-    int textWidth = textSurface->w;
-    int textHeight = textSurface->h;
+    // Update game objects
+    Player::update();
+    Enemy::updateAll();
+    Item::updateAll();
+    VisualEffect::updateAll();
 
-    // Free the surface (we don't need it anymore)
-    SDL_DestroySurface(textSurface);
+    // Check for item pickup
+    Item::checkCollection(score);
 
-    // Define the destination rectangle for rendering
-    SDL_FRect dstRect = { static_cast<float>(x), static_cast<float>(y), static_cast<float>(textWidth), static_cast<float>(textHeight) };
+    // Check for enemy collision
+    if (!isInvulnerable && Enemy::checkCollisionWithPlayer()) {
+        playerLives -= GameConfig::LIFE_LOSS_ON_HIT;
+        isInvulnerable = true;
+        invulnerableStartTime = now;
 
-    // Render the text texture
-    SDL_RenderTexture(renderer, textTexture, nullptr, &dstRect);
+        VisualEffect::EffectConfig config;
+        config.color = { 255, 0, 0, 255 }; // Red for damage
+        config.fontSize = 28;
+        config.riseSpeed = 0.08f;
+        config.duration = 1200;
 
-    // Free the texture
-    SDL_DestroyTexture(textTexture);
+        VisualEffect::add("-" + std::to_string(GameConfig::LIFE_LOSS_ON_HIT) + " Life",
+            Player::getX(), Player::getY(), config);
+    }
+
+    // Win condition
+    if (Goal::checkReached()) {
+        gameWon = true;
+        gameOver = true;
+    }
+
+    // Lose condition
+    if (timeRemaining <= 0 || playerLives <= 0) {
+        gameWon = false;
+        gameOver = true;
+    }
 }
 
-void renderMaze() {
-    // Clear screen
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+// ---------------------
+// RENDER EVERYTHING
+// ---------------------
+void Game::render() {
+    SDL_SetRenderDrawColor(renderer, GameConfig::COLOR_BG.r, GameConfig::COLOR_BG.g, GameConfig::COLOR_BG.b, 255);
     SDL_RenderClear(renderer);
 
-    // Render score text *FIRST*
-    std::string scoreText = "Score: " + std::to_string(score);
-    renderText(scoreText, 10, 10); // Display at top (y = 10)
+    // Draw game components
+    Maze::render();
+    Item::renderAll();
+    Enemy::renderAll();
+    Goal::render();
+    Player::render(isInvulnerable);
+    VisualEffect::renderAll();
+    UIManager::renderAll(score, timeRemaining, playerLives);
 
-    // Render time remaining text (time is based on health)
-    std::string timeText = "Time Remaining: " + std::to_string(health) + "s";
-    renderText(timeText, 10, 40); // Display below score (y = 40)
-
-    // Render lives text
-    std::string livesText = "Lives: " + std::to_string(playerLives);
-    renderText(livesText, 10, 70); // Display below time (y = 70)
-
-    // Render maze *AFTER* the text, with a vertical offset.  This is crucial.
-    int yOffset = 100; // Offset the maze rendering by 100 pixels downwards
-    for (int y = 0; y < MAZE_HEIGHT; y++) {
-        for (int x = 0; x < MAZE_WIDTH; x++) {
-            SDL_FRect tile = { static_cast<float>(x * TILE_SIZE), static_cast<float>(y * TILE_SIZE + yOffset), static_cast<float>(TILE_SIZE), static_cast<float>(TILE_SIZE) };
-            if (maze[y][x] == WALL) {
-                SDL_SetRenderDrawColor(renderer, 100, 100, 100, 255); // Gray for walls
-            }
-            else if (maze[y][x] == PATH) {
-                SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // White for paths
-            }
-            SDL_RenderFillRect(renderer, &tile);
-        }
-    }
-
-    // Render items based on the items vector
-    for (const Item& item : items) {
-        int centerX = item.x * TILE_SIZE + TILE_SIZE / 2;
-        int centerY = item.y * TILE_SIZE + yOffset + TILE_SIZE / 2;
-        int radius = TILE_SIZE / 3;
-
-        SDL_Color itemColor = { 255, 255, 0, 255 }; // Yellow
-        drawFilledCircle(renderer, centerX, centerY, radius, itemColor);
-    }
-    // Render enemies based on the enemies vector
-    for (const Enemy& enemy : enemies) {
-        // Inside enemy rendering loop
-        int centerX = enemy.x * TILE_SIZE + TILE_SIZE / 2;
-        int centerY = enemy.y * TILE_SIZE + yOffset + TILE_SIZE / 2;
-        int half = TILE_SIZE / 3;
-
-        SDL_FPoint p1, p2, p3;
-        switch (enemy.direction) {
-        case PATH_UP:
-            p1 = { (float)centerX, (float)(centerY - half) };
-            p2 = { (float)(centerX - half), (float)(centerY + half) };
-            p3 = { (float)(centerX + half), (float)(centerY + half) };
-            break;
-        case PATH_DOWN:
-            p1 = { (float)centerX, (float)(centerY + half) };
-            p2 = { (float)(centerX - half), (float)(centerY - half) };
-            p3 = { (float)(centerX + half), (float)(centerY - half) };
-            break;
-        case PATH_LEFT:
-            p1 = { (float)(centerX - half), (float)centerY };
-            p2 = { (float)(centerX + half), (float)(centerY - half) };
-            p3 = { (float)(centerX + half), (float)(centerY + half) };
-            break;
-        case PATH_RIGHT:
-            p1 = { (float)(centerX + half), (float)centerY };
-            p2 = { (float)(centerX - half), (float)(centerY - half) };
-            p3 = { (float)(centerX - half), (float)(centerY + half) };
-            break;
-        }
-
-        SDL_Color enemyColor = { 255, 0, 0, 255 };
-        drawFilledTriangle(renderer, p1, p2, p3, enemyColor);
-    }
-
-    // Render player (with blinking effect if invulnerable)
-    if (!isInvulnerable || (SDL_GetTicks() / 100) % 2 == 0) {
-        // Draw player circle here 
-        int centerX = playerX * TILE_SIZE + TILE_SIZE / 2;
-        int centerY = playerY * TILE_SIZE + yOffset + TILE_SIZE / 2;
-        int radius = TILE_SIZE / 3;
-
-        SDL_Color fill = { 0, 200, 0, 255 }; // Green
-        SDL_Color outline = { 0, 100, 0, 255 }; // Darker green
-
-        // Draw filled circle
-        drawFilledCircle(renderer, centerX, centerY, radius, fill);
-
-        // Optional: draw simple outline manually
-        for (int r = radius + 1; r <= radius + 2; r++) {
-            drawFilledCircle(renderer, centerX, centerY, r, outline);
-        }
-    }
-
-    // Render goal (with offset)
-    int centerX = goalX * TILE_SIZE + TILE_SIZE / 2;
-    int centerY = goalY * TILE_SIZE + yOffset + TILE_SIZE / 2;
-    int size = TILE_SIZE / 3;
-
-    SDL_Color goalColor = { 0, 0, 255, 255 }; // Blue
-    drawFilledDiamond(renderer, centerX, centerY, size, goalColor);
-
-    // Render visual effects
-    Uint64 currentTime = SDL_GetTicks();
-    for (size_t i = 0; i < visualEffects.size(); ) {
-        VisualEffect& effect = visualEffects[i];
-        Uint64 elapsed = currentTime - effect.startTime;
-
-        if (elapsed > effect.duration) {
-            // Remove expired effect
-            visualEffects.erase(visualEffects.begin() + i);
-            continue;
-        }
-
-        // Update position and alpha
-        effect.y -= effect.riseSpeed;
-        effect.alpha = 255 * (1.0f - (float)elapsed / effect.duration);
-
-        // Render text with transparency
-        SDL_Color color = { 255, 255, 0, static_cast<Uint8>(effect.alpha) };
-        SDL_Surface* surface = TTF_RenderText_Solid(font, effect.text.c_str(), effect.text.length(), color);
-        if (surface) {
-            SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
-            if (texture) {
-                SDL_FRect dstRect = { effect.x, effect.y, static_cast<float>(surface->w), static_cast<float>(surface->h) };
-                SDL_RenderTexture(renderer, texture, nullptr, &dstRect);
-                SDL_DestroyTexture(texture);
-            }
-            SDL_DestroySurface(surface);
-        }
-
-        ++i;
-    }
-    // Update screen
     SDL_RenderPresent(renderer);
 }
 
-void handleInput(SDL_Event& event) {
-    if (event.type == SDL_EVENT_KEY_DOWN) {
-        int newX = playerX;
-        int newY = playerY;
+// ---------------------
+// END SCREEN POPUP
+// ---------------------
+bool Game::isOver() {
+    return gameOver;
+}
 
-        switch (event.key.key) {
-        case SDLK_UP: newY--; break;
-        case SDLK_DOWN: newY++; break;
-        case SDLK_LEFT: newX--; break;
-        case SDLK_RIGHT: newX++; break;
-        }
+void Game::showEndScreen() {
+    Uint64 endTime = SDL_GetTicks();
+    float seconds = (endTime - gameStartTime) / 1000.0f;
 
-        movePlayer(newX, newY);
+    // Format time with configurable decimal places
+    std::ostringstream timeStream;
+    timeStream.precision(GameConfig::TIME_PLAYED_DECIMALS);
+    timeStream << std::fixed << seconds;
+
+    std::string title = gameWon ? "You Win!" : "You Lose!";
+    std::string message = "Final Score: " + std::to_string(score) +
+        "\nLives Remaining: " + std::to_string(playerLives) +
+        "\nTime Played: " + timeStream.str() + "s";
+
+    const SDL_MessageBoxButtonData buttons[] = {
+        { SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT, 1, "Restart" },
+        { SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT, 0, "Exit" }
+    };
+
+    const SDL_MessageBoxData msgData = {
+        SDL_MESSAGEBOX_INFORMATION,
+        window, title.c_str(), message.c_str(),
+        SDL_arraysize(buttons), buttons, nullptr
+    };
+
+    int buttonId = 0;
+    SDL_ShowMessageBox(&msgData, &buttonId);
+
+    if (buttonId == 1) {
+        // Restart the game
+        Maze::reload();
+        gameOver = false;
+        gameWon = false;
+        timeRemaining = 100;
+        playerLives = GameConfig::PLAYER_LIVES;
+        score = 0;
+        gameStartTime = SDL_GetTicks();
+        lastTimeDecrease = gameStartTime;
+        UIManager::setupDefaultLabels();
+    }
+    else {
+        // Exit the game
+        exitRequested = true;
     }
 }

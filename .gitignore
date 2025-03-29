@@ -361,3 +361,31 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Ignore build output folders
+x64/
+.vs/
+*.exe
+*.pdb
+*.obj
+*.ilk
+*.idb
+*.tlog
+*.log
+*.lastbuildstate
+*.VC.db
+*.VC.VC.opendb
+
+# Ignore user-specific files
+*.user
+*.suo
+
+# Ignore CMake or temp files (if you use them later)
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Optional: ignore temporary or backup files
+*.tmp
+*.bak
