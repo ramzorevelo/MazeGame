@@ -3,7 +3,9 @@
 This is a simple maze game written in C++ using SDL3. It is designed to help you practice and explore C++ programming by working on a real project.
 
 Features include player movement, collectible items, basic enemy logic, a scoring system, and win/loss conditions. The code is written to be easily understandable and modifiable, making it ideal for beginners or those learning game development with SDL.
-
+## Screenshots
+<img src="assets/screenshot00.png" alt="Screenshot00" width="600"/>
+<img src="assets/screenshot01.png" alt="Screenshot01" width="600"/>
 ---
 
 ## Requirements
