@@ -31,7 +31,7 @@ namespace GameConfig {
 	inline const int MAX_ENEMIES = 3;
 
 	// Number of lives the player starts with.
-	inline const int PLAYER_LIVES = 3;
+	inline const int PLAYER_LIVES = 5;
 
 
 	// --- Item and Enemy Effects ---
