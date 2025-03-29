@@ -23,8 +23,8 @@ namespace GameConfig {
 
 	// --- Game Limits ---
 
-// Maximum number of items (yellow circles) placed on the maze.
-// These give points when collected.
+	// Maximum number of items (yellow circles) placed on the maze.
+	// These give points when collected.
 	inline const int MAX_ITEMS = 5;
 
 	// Maximum number of enemies (red triangles) that move around the maze.
