@@ -16,22 +16,43 @@ The game features player movement, item collection, enemies, scoring, and win/lo
 
 ## Getting Started
 
-### 1. Open the Project
+### 1. Get the Project Files
 
-1. Open `MazeGame.sln` in Visual Studio 2022.
-2. Make sure the selected build configuration is **Debug** and the platform is **x64**.
+You have two options:
 
-### 2. Build and Run
+**Option A: Clone the repository (recommended)**
 
-- Press **Ctrl + F5** to build and run the game.
-- The game window should open and display the maze.
+1. Open Visual Studio 2022
+2. Go to **File > Clone Repository**
+3. Paste the GitHub repository URL
+4. Choose a folder for the project
+5. Click **Clone**
 
-If you encounter any missing DLL errors, make sure the following DLLs are inside the MazeGame folder (the project folder):
+**Option B: Download ZIP**
+
+1. Go to the GitHub repository page
+2. Click **Code > Download ZIP**
+3. Extract the ZIP file to a folder
+4. Open the folder
+
+### 2. Open the Project
+
+- In the project folder, double-click `MazeGame.sln` to open it in Visual Studio 2022.
+- Set the build configuration to **Debug**
+- Set the platform to **x64**
+
+### 3. Build and Run
+
+- Press **Ctrl + F5** to build and run the game (without debugging)
+- The game window should open and run immediately
+
+If you see any errors about missing DLLs, make sure the following files are in the same folder as the executable (`Debug` or `Release`):
+
 - `SDL3.dll`
 - `SDL3_ttf.dll`
+- `font.ttf`
 
 These are already included in the project and should copy automatically.
-
 ---
 
 ## Controls
