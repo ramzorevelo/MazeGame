@@ -165,7 +165,6 @@ Try modifying the game to:
 - Change the maze layout
 - Increase or decrease speed or time
 - Make enemies follow the player
-This is a great way to practice working with C++ classes, logic, and structure.
 
 ## Notes
 - All SDL3 and SDL_ttf files are already included in the project folder.
