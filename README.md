@@ -64,6 +64,17 @@ If you see any errors about missing DLLs, make sure the following files are in t
 - `font.ttf`
 
 These are already included in the project and should copy automatically.
+
+### 4. Locating the Files in Solution Explorer
+**After you open the project in Visual Studio:
+
+- In the Solution Explorer (usually on the right side), you will see a project named MazeGame.
+- If the folder appears collapsed, click the small arrow next to it to expand the project.
+- You should now see the following folders:
+
+- Header Files – Contains files like Game.h, Maze.h, and GameConfig.h
+- Source Files – Contains .cpp files like main.cpp, Game.cpp, Player.cpp, etc.
+- 
 ---
 
 ## Controls
