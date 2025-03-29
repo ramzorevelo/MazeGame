@@ -37,9 +37,20 @@ You have two options:
 
 ### 2. Open the Project
 
-- In the project folder, double-click `MazeGame.sln` to open it in Visual Studio 2022.
+**If you cloned the repository (Option A):**
+
+- Visual Studio will automatically open the project after cloning.
+- If not, go to **File > Open > Project/Solution**, then open `MazeGame.sln` from the folder where you cloned the project.
+
+**If you downloaded the ZIP (Option B):**
+
+- Go to the folder where you extracted the ZIP.
+- Double-click `MazeGame.sln` to open the project in Visual Studio 2022.
+
+Once the project is open:
+
 - Set the build configuration to **Debug**
-- Set the platform to **x64**
+- Set the platform to **x64** (not x86)
 
 ### 3. Build and Run
 
