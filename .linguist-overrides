@@ -1,0 +1,8 @@
+languages:
+  - name: SDL3
+    type: library
+    color: '#4c76a6'  
+    extensions:
+      - ".h"
+    tm_scope: source.c
+    ace_mode: c_cpp
