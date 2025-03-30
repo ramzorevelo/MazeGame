@@ -3,7 +3,8 @@
 ###############################################################################
 * text=auto
 * linguist-vendored
-SDL/*.h linguist-vendored
+SDL/ linguist-vendored
+*.cpp linguist-language=C++
 
 ###############################################################################
 # Set default behavior for command prompt diff.
