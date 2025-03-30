@@ -14,12 +14,23 @@ Features include player movement, collectible items, basic enemy logic, a scorin
 
 ## Requirements
 
-- Visual Studio 2022 (Community or higher)
+- Visual Studio 2022 (Community or higher) with **Desktop development with C++ installed**
 - Windows 10 or 11
 - No additional downloads required — SDL3 and SDL_ttf are already included in the project folder
 
 ---
-
+## How to Install the C++ Workload in Visual Studio
+If you haven’t installed Visual Studio yet:
+- Download the Visual Studio 2022 installer from https://visualstudio.microsoft.com/
+- When the installer opens, check "Desktop development with C++"
+- Click Install
+  
+If you already have Visual Studio installed:
+- Open the Visual Studio Installer
+- Click Modify on your existing installation
+- Check "Desktop development with C++"
+- Click Modify to apply changes
+---
 ## Getting Started
 
 ### 1. Get the Project Files
