@@ -2,6 +2,7 @@
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
 * text=auto
+* linguist-vendored
 SDL/SDL3/include/SDL3/*.h linguist-vendored
 ###############################################################################
 # Set default behavior for command prompt diff.
