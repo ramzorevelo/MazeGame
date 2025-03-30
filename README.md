@@ -152,14 +152,15 @@ std::vector<std::vector<int>> layout = {
     {0,2,1,5,0},
     {0,0,0,0,0}
 };
-Each number represents a tile type:
-
-0 = Wall
-1 = Path
-2 = Item
-3 = Player start
-4 = Goal tile
-5 = Enemy
+// Each number represents a tile type:
+/*
+  0 = Wall
+  1 = Path
+  2 = Item
+  3 = Player start
+  4 = Goal tile
+  5  = Enemy
+*/
 ```
 You can design your own maze here by changing the values.
 
