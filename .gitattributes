@@ -4,7 +4,6 @@
 * text=auto
 * linguist-vendored
 SDL/ linguist-vendored
-*.cpp linguist-language=C++
 
 ###############################################################################
 # Set default behavior for command prompt diff.
