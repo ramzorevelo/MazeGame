@@ -4,7 +4,7 @@
 * text=auto
 * linguist-vendored
 SDL/SDL3/include/SDL3/*.h linguist-vendored
-SDL/SDL3_ttf/include/SDL3_ttf/ linguist-vendored=false
+SDL/SDL3_ttf/include/SDL3_ttf/*.h linguist-vendored=false
 *.cpp linguist-vendored=false
 ###############################################################################
 # Set default behavior for command prompt diff.
