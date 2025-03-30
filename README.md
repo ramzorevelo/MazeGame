@@ -14,7 +14,7 @@ Features include player movement, collectible items, basic enemy logic, a scorin
 
 ## Requirements
 
-- Visual Studio 2022 (Community or higher) with **Desktop development with C++ installed**
+- Visual Studio 2022 (Community or higher) with **Desktop development with C++** installed
 - Windows 10 or 11
 - No additional downloads required — SDL3 and SDL_ttf are already included in the project folder
 
