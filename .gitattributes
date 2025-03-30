@@ -2,8 +2,8 @@
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
 * text=auto
-SDL/ linguist-vendored
-src/*.cpp linguist-language=C++
+* linguist-vendored
+SDL/*.h linguist-vendored
 ###############################################################################
 # Set default behavior for command prompt diff.
 #
