@@ -142,7 +142,7 @@ inline const Uint64 ITEM_MOVE_INTERVAL = 500;
 You can also change the shape of entities (circle, triangle, diamond), the number of lives, score per item, speed of enemies/items, and more.
 
 Maze Layout
-In main.cpp, you can edit the maze layout using a 2D vector:
+In main.cpp, you can edit the maze layout using a 2D vector by changing the values and number of rows and columns:
 
 ```cpp
 std::vector<std::vector<int>> layout = {
@@ -152,7 +152,9 @@ std::vector<std::vector<int>> layout = {
     {0,2,1,5,0},
     {0,0,0,0,0}
 };
+```
 Each number represents a tile type:
+```cpp
   0 = Wall
   1 = Path
   2 = Item
@@ -160,7 +162,6 @@ Each number represents a tile type:
   4 = Goal tile
   5  = Enemy
 ```
-You can design your own maze here by changing the values.
 
 ## Suggested Experiments
 Try modifying the game to:
