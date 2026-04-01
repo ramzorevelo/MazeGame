@@ -29,26 +29,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -76,10 +76,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\components;$(ProjectDir)src\core;$(ProjectDir)src\entities;$(ProjectDir)src\factories;$(ProjectDir)src\maze;$(ProjectDir)src\rendering;$(ProjectDir)src\systems;$(ProjectDir)src\utils;$(ProjectDir)SDL3\include;$(ProjectDir)SDL3_ttf\include;$(IncludePath)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)SDL3\lib\x64;$(ProjectDir)SDL3_ttf\lib\x64;$(LibraryPath)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL3.lib;SDL3_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -90,12 +94,16 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\components;$(ProjectDir)src\core;$(ProjectDir)src\entities;$(ProjectDir)src\factories;$(ProjectDir)src\maze;$(ProjectDir)src\rendering;$(ProjectDir)src\systems;$(ProjectDir)src\utils;$(ProjectDir)SDL3\include;$(ProjectDir)SDL3_ttf\include;$(IncludePath)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)SDL3\lib\x64;$(ProjectDir)SDL3_ttf\lib\x64;$(LibraryPath)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL3.lib;SDL3_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -104,14 +112,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)SDL\SDL3\include;$(ProjectDir)SDL\SDL3_ttf\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\components;$(ProjectDir)src\core;$(ProjectDir)src\entities;$(ProjectDir)src\factories;$(ProjectDir)src\maze;$(ProjectDir)src\rendering;$(ProjectDir)src\systems;$(ProjectDir)src\utils;$(ProjectDir)SDL3\include;$(ProjectDir)SDL3_ttf\include;$(IncludePath)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>SDL3.lib;SDL3_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)SDL\SDL3\lib\;$(ProjectDir)SDL\SDL3_ttf\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)SDL3\lib\x64;$(ProjectDir)SDL3_ttf\lib\x64;$(LibraryPath)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -122,42 +130,46 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\components;$(ProjectDir)src\core;$(ProjectDir)src\entities;$(ProjectDir)src\factories;$(ProjectDir)src\maze;$(ProjectDir)src\rendering;$(ProjectDir)src\systems;$(ProjectDir)src\utils;$(ProjectDir)SDL3\include;$(ProjectDir)SDL3_ttf\include;$(IncludePath)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)SDL3\lib\x64;$(ProjectDir)SDL3_ttf\lib\x64;$(LibraryPath)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL3.lib;SDL3_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Goal.cpp" />
-    <ClCompile Include="Item.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Maze.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="ShapeRenderer.cpp" />
-    <ClCompile Include="UIManager.cpp" />
-    <ClCompile Include="VisualEffect.cpp" />
+    <ClCompile Include="src\core\game.cpp" />
+    <ClCompile Include="src\entities\Enemy.cpp" />
+    <ClCompile Include="src\entities\Entity.cpp" />
+    <ClCompile Include="src\entities\Goal.cpp" />
+    <ClCompile Include="src\entities\Item.cpp" />
+    <ClCompile Include="src\entities\Player.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\maze\Maze.cpp" />
+    <ClCompile Include="src\rendering\Renderer.cpp" />
+    <ClCompile Include="src\rendering\ShapeRenderer.cpp" />
+    <ClCompile Include="src\rendering\UIManager.cpp" />
+    <ClCompile Include="src\rendering\VisualEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Direction.h" />
-    <ClInclude Include="Enemy.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GameConfig.h" />
-    <ClInclude Include="Goal.h" />
-    <ClInclude Include="Item.h" />
-    <ClInclude Include="Maze.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Renderer.h" />
-    <ClInclude Include="ShapeRenderer.h" />
-    <ClInclude Include="UIManager.h" />
-    <ClInclude Include="VisualEffect.h" />
+    <ClInclude Include="src\core\game.h" />
+    <ClInclude Include="src\core\GameConfig.h" />
+    <ClInclude Include="src\entities\Enemy.h" />
+    <ClInclude Include="src\entities\Entity.h" />
+    <ClInclude Include="src\entities\Goal.h" />
+    <ClInclude Include="src\entities\Item.h" />
+    <ClInclude Include="src\entities\Player.h" />
+    <ClInclude Include="src\maze\Maze.h" />
+    <ClInclude Include="src\rendering\Renderer.h" />
+    <ClInclude Include="src\rendering\ShapeRenderer.h" />
+    <ClInclude Include="src\rendering\UIManager.h" />
+    <ClInclude Include="src\rendering\VisualEffect.h" />
+    <ClInclude Include="src\utils\Direction.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

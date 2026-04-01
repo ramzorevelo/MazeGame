@@ -15,81 +15,81 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="src\core\game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\entities\Enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Maze.cpp">
+    <ClCompile Include="src\entities\Entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UIManager.cpp">
+    <ClCompile Include="src\entities\Goal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp">
+    <ClCompile Include="src\entities\Item.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ShapeRenderer.cpp">
+    <ClCompile Include="src\entities\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Entity.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
+    <ClCompile Include="src\maze\Maze.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
+    <ClCompile Include="src\rendering\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Item.cpp">
+    <ClCompile Include="src\rendering\ShapeRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Goal.cpp">
+    <ClCompile Include="src\rendering\UIManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VisualEffect.cpp">
+    <ClCompile Include="src\rendering\VisualEffect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameConfig.h">
+    <ClInclude Include="src\core\game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
+    <ClInclude Include="src\core\GameConfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Maze.h">
+    <ClInclude Include="src\entities\Enemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UIManager.h">
+    <ClInclude Include="src\entities\Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
+    <ClInclude Include="src\entities\Goal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ShapeRenderer.h">
+    <ClInclude Include="src\entities\Item.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Entity.h">
+    <ClInclude Include="src\entities\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="src\maze\Maze.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
+    <ClInclude Include="src\rendering\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Item.h">
+    <ClInclude Include="src\rendering\ShapeRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Goal.h">
+    <ClInclude Include="src\rendering\UIManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VisualEffect.h">
+    <ClInclude Include="src\rendering\VisualEffect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Direction.h">
+    <ClInclude Include="src\utils\Direction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
