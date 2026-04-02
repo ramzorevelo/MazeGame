@@ -1,0 +1,36 @@
+{
+  "bindings": [
+    {
+      "key": "Up",
+      "action": "MoveUp"
+    },
+    {
+      "key": "Down",
+      "action": "MoveDown"
+    },
+    {
+      "key": "Left",
+      "action": "MoveLeft"
+    },
+    {
+      "key": "Right",
+      "action": "MoveRight"
+    },
+    {
+      "key": "W",
+      "action": "MoveUp"
+    },
+    {
+      "key": "S",
+      "action": "MoveDown"
+    },
+    {
+      "key": "A",
+      "action": "MoveLeft"
+    },
+    {
+      "key": "D",
+      "action": "MoveRight"
+    }
+  ]
+}

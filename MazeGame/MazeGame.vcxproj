@@ -72,104 +72,124 @@
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\components;$(ProjectDir)src\core;$(ProjectDir)src\entities;$(ProjectDir)src\factories;$(ProjectDir)src\maze;$(ProjectDir)src\rendering;$(ProjectDir)src\systems;$(ProjectDir)src\utils;$(ProjectDir)SDL3\include;$(ProjectDir)SDL3_ttf\include;$(IncludePath)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\components;$(ProjectDir)src\core;$(ProjectDir)src\entities;$(ProjectDir)src\factories;$(ProjectDir)src\maze;$(ProjectDir)src\rendering;$(ProjectDir)src\systems;$(ProjectDir)src\utils;$(ProjectDir)SDL3\include;$(ProjectDir)SDL3_ttf\include;$(ProjectDir)vendor;$(IncludePath);$(ProjectDir)assets</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)SDL3\lib\x64;$(ProjectDir)SDL3_ttf\lib\x64;$(LibraryPath)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)SDL3\lib\x64;$(ProjectDir)SDL3_ttf\lib\x64;$(LibraryPath);$(ProjectDir)vendor</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL3.lib;SDL3_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <PerUserRedirection>true</PerUserRedirection>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\components;$(ProjectDir)src\core;$(ProjectDir)src\entities;$(ProjectDir)src\factories;$(ProjectDir)src\maze;$(ProjectDir)src\rendering;$(ProjectDir)src\systems;$(ProjectDir)src\utils;$(ProjectDir)SDL3\include;$(ProjectDir)SDL3_ttf\include;$(IncludePath)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\components;$(ProjectDir)src\core;$(ProjectDir)src\entities;$(ProjectDir)src\factories;$(ProjectDir)src\maze;$(ProjectDir)src\rendering;$(ProjectDir)src\systems;$(ProjectDir)src\utils;$(ProjectDir)SDL3\include;$(ProjectDir)SDL3_ttf\include;$(ProjectDir)vendor;$(IncludePath);$(ProjectDir)assets</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)SDL3\lib\x64;$(ProjectDir)SDL3_ttf\lib\x64;$(LibraryPath)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)SDL3\lib\x64;$(ProjectDir)SDL3_ttf\lib\x64;$(LibraryPath);$(ProjectDir)vendor</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL3.lib;SDL3_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <PerUserRedirection>true</PerUserRedirection>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\components;$(ProjectDir)src\core;$(ProjectDir)src\entities;$(ProjectDir)src\factories;$(ProjectDir)src\maze;$(ProjectDir)src\rendering;$(ProjectDir)src\systems;$(ProjectDir)src\utils;$(ProjectDir)SDL3\include;$(ProjectDir)SDL3_ttf\include;$(IncludePath)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\components;$(ProjectDir)src\core;$(ProjectDir)src\entities;$(ProjectDir)src\factories;$(ProjectDir)src\maze;$(ProjectDir)src\rendering;$(ProjectDir)src\systems;$(ProjectDir)src\utils;$(ProjectDir)SDL3\include;$(ProjectDir)SDL3_ttf\include;$(ProjectDir)vendor;$(IncludePath);$(ProjectDir)assets</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>SDL3.lib;SDL3_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)SDL3\lib\x64;$(ProjectDir)SDL3_ttf\lib\x64;$(LibraryPath)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)SDL3\lib\x64;$(ProjectDir)SDL3_ttf\lib\x64;$(LibraryPath);$(ProjectDir)vendor</AdditionalLibraryDirectories>
+      <PerUserRedirection>true</PerUserRedirection>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\components;$(ProjectDir)src\core;$(ProjectDir)src\entities;$(ProjectDir)src\factories;$(ProjectDir)src\maze;$(ProjectDir)src\rendering;$(ProjectDir)src\systems;$(ProjectDir)src\utils;$(ProjectDir)SDL3\include;$(ProjectDir)SDL3_ttf\include;$(IncludePath)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\components;$(ProjectDir)src\core;$(ProjectDir)src\entities;$(ProjectDir)src\factories;$(ProjectDir)src\maze;$(ProjectDir)src\rendering;$(ProjectDir)src\systems;$(ProjectDir)src\utils;$(ProjectDir)SDL3\include;$(ProjectDir)SDL3_ttf\include;$(ProjectDir)vendor;$(IncludePath);$(ProjectDir)assets</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)SDL3\lib\x64;$(ProjectDir)SDL3_ttf\lib\x64;$(LibraryPath)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)SDL3\lib\x64;$(ProjectDir)SDL3_ttf\lib\x64;$(LibraryPath);$(ProjectDir)vendor</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL3.lib;SDL3_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <PerUserRedirection>true</PerUserRedirection>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\core\game.cpp" />
-    <ClCompile Include="src\entities\Enemy.cpp" />
-    <ClCompile Include="src\entities\Entity.cpp" />
-    <ClCompile Include="src\entities\Goal.cpp" />
-    <ClCompile Include="src\entities\Item.cpp" />
-    <ClCompile Include="src\entities\Player.cpp" />
+    <ClCompile Include="src\core\EntityRegistry.cpp" />
+    <ClCompile Include="src\core\Game.cpp" />
+    <ClCompile Include="src\core\InputSystem.cpp" />
+    <ClCompile Include="src\factories\EntityFactory.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\maze\Maze.cpp" />
     <ClCompile Include="src\rendering\Renderer.cpp" />
     <ClCompile Include="src\rendering\ShapeRenderer.cpp" />
     <ClCompile Include="src\rendering\UIManager.cpp" />
     <ClCompile Include="src\rendering\VisualEffect.cpp" />
+    <ClCompile Include="src\systems\AISystem.cpp" />
+    <ClCompile Include="src\systems\CollisionSystem.cpp" />
+    <ClCompile Include="src\systems\RenderSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\core\game.h" />
+    <ClInclude Include="src\components\Components.h" />
+    <ClInclude Include="src\core\ComponentTypes.h" />
+    <ClInclude Include="src\core\EntityID.h" />
+    <ClInclude Include="src\core\EntityRegistry.h" />
+    <ClInclude Include="src\core\EventBus.h" />
+    <ClInclude Include="src\core\Events.h" />
+    <ClInclude Include="src\core\Game.h" />
     <ClInclude Include="src\core\GameConfig.h" />
-    <ClInclude Include="src\entities\Enemy.h" />
-    <ClInclude Include="src\entities\Entity.h" />
-    <ClInclude Include="src\entities\Goal.h" />
-    <ClInclude Include="src\entities\Item.h" />
-    <ClInclude Include="src\entities\Player.h" />
+    <ClInclude Include="src\core\InputSystem.h" />
+    <ClInclude Include="src\factories\EntityFactory.h" />
     <ClInclude Include="src\maze\Maze.h" />
     <ClInclude Include="src\rendering\Renderer.h" />
     <ClInclude Include="src\rendering\ShapeRenderer.h" />
     <ClInclude Include="src\rendering\UIManager.h" />
     <ClInclude Include="src\rendering\VisualEffect.h" />
+    <ClInclude Include="src\systems\AISystem.h" />
+    <ClInclude Include="src\systems\CollisionSystem.h" />
+    <ClInclude Include="src\systems\RenderSystem.h" />
     <ClInclude Include="src\utils\Direction.h" />
+    <ClInclude Include="vendor\nlohmann\json.hpp" />
+    <ClInclude Include="vendor\nlohmann\json_fwd.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\config\input.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

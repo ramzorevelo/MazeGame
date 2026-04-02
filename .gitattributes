@@ -3,6 +3,7 @@
 ###############################################################################
 * text=auto
 * linguist-vendored
+**/vendor/**  binary
 SDL/SDL3/include/SDL3/*.h linguist-vendored
 *.cpp linguist-vendored=false
 ###############################################################################

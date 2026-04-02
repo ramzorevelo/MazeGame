@@ -1,13 +1,12 @@
 // main.cpp
 #include "Game.h"
 #include "GameConfig.h"
-#include "Maze.h"
 #include "UIManager.h"
 
 #include <cstdlib>
 #include <ctime>
 
-int main(int argc, char* argv[]) {
+int main(int /*argc*/, char* /*argv*/[]) {
     // Initialize SDL and game systems
     if (!Game::init()) {
         return 1;   // Exit if initialization fails
@@ -38,7 +37,7 @@ int main(int argc, char* argv[]) {
     };
 
     // Load the maze and place items, enemies, player, etc.
-    Maze::loadLayout(layout);
+    Game::loadLevel(layout);
 
     // Setup UI labels like Score, Time, Lives
     UIManager::setupDefaultLabels();

@@ -15,4 +15,10 @@ namespace Maze {
 
     // Check if a tile is walkable (not a wall)
     bool isWalkable(int x, int y);
+
+    // Sets tile grid from layout (no entity spawning). Used by ECS game.
+    void initFromLayout(const std::vector<std::vector<int>>& layout);
+
+    // Returns the layout passed to the most recent initFromLayout or loadLayout.
+    const std::vector<std::vector<int>>& getOriginalLayout();
 }

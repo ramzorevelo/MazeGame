@@ -42,8 +42,6 @@ void UIManager::setupDefaultLabels() {
 }
 
 void UIManager::renderAll(int score, int timeRemaining, int lives) {
-    TTF_Font* font = Game::getFont();
-    SDL_Renderer* renderer = Game::getRenderer();
 
     // Update dynamic values
     labels[0].getValue = [score] { return std::to_string(score); };

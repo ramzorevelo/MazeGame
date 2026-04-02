@@ -46,7 +46,7 @@ void VisualEffect::updateAll() {
         }
         else {
             fx.y -= fx.config.riseSpeed;
-            fx.alpha = 255 * (1.0f - static_cast<float>(elapsed) / fx.config.duration);
+            fx.alpha = 255.0f * (1.0f - static_cast<float>(elapsed) / static_cast<float>(fx.config.duration));
             ++i;
         }
     }
